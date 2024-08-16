@@ -1,8 +1,8 @@
-using FitLibrary.Contexts;
-using FitLibrary.Repositories;
-using FitLibrary.Repositories.Impls;
-using FitLibrary.Services;
-using FitLibrary.Services.Impls;
+using FitLibrary.DataAccess.Common.Repositories;
+using FitLibrary.DataAccess.Contexts;
+using FitLibrary.DataAccess.Repositories;
+using FitLibrary.Logic.Common.Services;
+using FitLibrary.Logic.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 
-namespace FitLibrary
+namespace FitLibrary.WebAPI
 {
     public class Startup
     {
@@ -36,7 +36,7 @@ namespace FitLibrary
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FitLibrary", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FitLibrary.WebAPI", Version = "v1" });
             });
         }
 
@@ -46,7 +46,7 @@ namespace FitLibrary
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FitLibrary v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FitLibrary.WebAPI v1"));
             }
 
             app.UseHttpsRedirection();

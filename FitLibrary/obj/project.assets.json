@@ -1907,6 +1907,58 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "FitLibrary.DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "FitLibrary.DataAccess.Common": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.17"
+        },
+        "compile": {
+          "bin/placeholder/FitLibrary.DataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FitLibrary.DataAccess.dll": {}
+        }
+      },
+      "FitLibrary.DataAccess.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/FitLibrary.DataAccess.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FitLibrary.DataAccess.Common.dll": {}
+        }
+      },
+      "FitLibrary.Logic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "AutoMapper": "12.0.1",
+          "FitLibrary.DataAccess.Common": "1.0.0",
+          "FitLibrary.Logic.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FitLibrary.Logic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FitLibrary.Logic.dll": {}
+        }
+      },
+      "FitLibrary.Logic.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "FitLibrary.DataAccess.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FitLibrary.Logic.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FitLibrary.Logic.Common.dll": {}
+        }
       }
     }
   },
@@ -6343,12 +6395,35 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "FitLibrary.DataAccess/1.0.0": {
+      "type": "project",
+      "path": "../FitLibrary.DataAccess/FitLibrary.DataAccess.csproj",
+      "msbuildProject": "../FitLibrary.DataAccess/FitLibrary.DataAccess.csproj"
+    },
+    "FitLibrary.DataAccess.Common/1.0.0": {
+      "type": "project",
+      "path": "../FitLibrary.DataAccess.Common/FitLibrary.DataAccess.Common.csproj",
+      "msbuildProject": "../FitLibrary.DataAccess.Common/FitLibrary.DataAccess.Common.csproj"
+    },
+    "FitLibrary.Logic/1.0.0": {
+      "type": "project",
+      "path": "../FitLibrary.Logic/FitLibrary.Logic.csproj",
+      "msbuildProject": "../FitLibrary.Logic/FitLibrary.Logic.csproj"
+    },
+    "FitLibrary.Logic.Common/1.0.0": {
+      "type": "project",
+      "path": "../FitLibrary.Logic.Common/FitLibrary.Logic.Common.csproj",
+      "msbuildProject": "../FitLibrary.Logic.Common/FitLibrary.Logic.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
+      "FitLibrary.DataAccess >= 1.0.0",
+      "FitLibrary.Logic >= 1.0.0",
+      "FitLibrary.Logic.Common >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.17",
       "Swashbuckle.AspNetCore >= 5.6.3"
@@ -6380,7 +6455,17 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary.DataAccess\\FitLibrary.DataAccess.csproj": {
+              "projectPath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary.DataAccess\\FitLibrary.DataAccess.csproj"
+            },
+            "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary.Logic.Common\\FitLibrary.Logic.Common.csproj": {
+              "projectPath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary.Logic.Common\\FitLibrary.Logic.Common.csproj"
+            },
+            "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary.Logic\\FitLibrary.Logic.csproj": {
+              "projectPath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary.Logic\\FitLibrary.Logic.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

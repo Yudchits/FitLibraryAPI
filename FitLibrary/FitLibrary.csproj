@@ -15,4 +15,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FitLibrary.DataAccess\FitLibrary.DataAccess.csproj" />
+    <ProjectReference Include="..\FitLibrary.Logic.Common\FitLibrary.Logic.Common.csproj" />
+    <ProjectReference Include="..\FitLibrary.Logic\FitLibrary.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

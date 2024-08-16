@@ -1,13 +1,13 @@
-﻿using FitLibrary.DTOs;
-using FitLibrary.Services;
+﻿using FitLibrary.Logic.Common.Models;
+using FitLibrary.Logic.Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FitLibrary.Controllers
+namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/trainingPlanController")]
+    [Route("api/trainingPlan")]
     public class TrainingPlanController : ControllerBase
     {
         private readonly ITrainingPlanService _service;
@@ -19,7 +19,7 @@ namespace FitLibrary.Controllers
 
         [HttpGet]
         [Route("getAllTrainingPlans")]
-        [ProducesResponseType(typeof(ICollection<TrainingPlanDTO>), 200)]
+        [ProducesResponseType(typeof(ICollection<TrainingPlanFullBLL>), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllTrainingPlansAsync()
@@ -42,7 +42,7 @@ namespace FitLibrary.Controllers
 
         [HttpGet]
         [Route("getTrainingPlanById")]
-        [ProducesResponseType(typeof(TrainingPlanDTO), 200)]
+        [ProducesResponseType(typeof(TrainingPlanFullBLL), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -69,9 +69,9 @@ namespace FitLibrary.Controllers
         [Route("createTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateTrainingPlanAsync([FromBody] TrainingPlanDTO trainingPlan)
+        public async Task<IActionResult> CreateTrainingPlanAsync([FromBody] TrainingPlanShortBLL plan)
         {
-            var planId = await _service.CreateTrainingPlanAsync(trainingPlan);
+            var planId = await _service.CreateTrainingPlanAsync(plan);
 
             if (planId == 0)
             {
@@ -86,9 +86,9 @@ namespace FitLibrary.Controllers
         [Route("updateTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateTrainingPlanAsync([FromBody] TrainingPlanDTO trainingPlan)
+        public async Task<IActionResult> UpdateTrainingPlanAsync([FromBody] TrainingPlanShortBLL plan)
         {
-            var planId = await _service.UpdateTrainingPlanAsync(trainingPlan);
+            var planId = await _service.UpdateTrainingPlanAsync(plan);
 
             if (planId == 0)
             {

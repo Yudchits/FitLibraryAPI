@@ -69,3 +69,12 @@ D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\refint\FitLibrary.
 D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\FitLibrary.pdb
 D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\FitLibrary.genruntimeconfig.cache
 D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\ref\FitLibrary.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.DataAccess.Common.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.DataAccess.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.Logic.Common.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.Logic.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.DataAccess.pdb
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.Logic.Common.pdb
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.Logic.pdb
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.DataAccess.Common.pdb
+D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\FitLibrary.sourcelink.json

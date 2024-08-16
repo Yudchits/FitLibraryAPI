@@ -35,6 +35,9 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "FitLibrary.DataAccess": "1.0.0",
+          "FitLibrary.Logic": "1.0.0",
+          "FitLibrary.Logic.Common": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.17",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.17",
           "Swashbuckle.AspNetCore": "5.6.3",
@@ -1440,6 +1443,50 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XmlDocument": "4.3.0"
+        }
+      },
+      "FitLibrary.DataAccess/1.0.0": {
+        "dependencies": {
+          "FitLibrary.DataAccess.Common": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.17"
+        },
+        "runtime": {
+          "FitLibrary.DataAccess.dll": {}
+        },
+        "compile": {
+          "FitLibrary.DataAccess.dll": {}
+        }
+      },
+      "FitLibrary.DataAccess.Common/1.0.0": {
+        "runtime": {
+          "FitLibrary.DataAccess.Common.dll": {}
+        },
+        "compile": {
+          "FitLibrary.DataAccess.Common.dll": {}
+        }
+      },
+      "FitLibrary.Logic/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "12.0.1",
+          "FitLibrary.DataAccess.Common": "1.0.0",
+          "FitLibrary.Logic.Common": "1.0.0"
+        },
+        "runtime": {
+          "FitLibrary.Logic.dll": {}
+        },
+        "compile": {
+          "FitLibrary.Logic.dll": {}
+        }
+      },
+      "FitLibrary.Logic.Common/1.0.0": {
+        "dependencies": {
+          "FitLibrary.DataAccess.Common": "1.0.0"
+        },
+        "runtime": {
+          "FitLibrary.Logic.Common.dll": {}
+        },
+        "compile": {
+          "FitLibrary.Logic.Common.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -3853,6 +3900,26 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "FitLibrary.DataAccess/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FitLibrary.DataAccess.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FitLibrary.Logic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FitLibrary.Logic.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
       "type": "referenceassembly",
