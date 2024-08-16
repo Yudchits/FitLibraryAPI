@@ -39,8 +39,9 @@ namespace FitLibrary.Repositories.Impls
             return isUpdated ? plan.Id : 0;
         }
 
-        public async Task<int> DeleteTrainingPlanAsync(TrainingPlan plan)
+        public async Task<int> DeleteTrainingPlanByIdAsync(int id)
         {
+            var plan = await _context.TrainingPlans.SingleOrDefaultAsync(plan => plan.Id == id);
             _context.TrainingPlans.Remove(plan);
             var isDeleted = await SaveChangesAsync();
             return isDeleted ? plan.Id : 0;

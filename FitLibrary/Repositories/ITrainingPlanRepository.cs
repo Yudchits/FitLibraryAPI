@@ -10,7 +10,7 @@ namespace FitLibrary.Repositories
         Task<TrainingPlan> GetTrainingPlanByIdAsync(int id);
         Task<int> CreateTrainingPlanAsync(TrainingPlan plan);
         Task<int> UpdateTrainingPlanAsync(TrainingPlan plan);
-        Task<int> DeleteTrainingPlanAsync(TrainingPlan plan);
+        Task<int> DeleteTrainingPlanByIdAsync(int id);
         Task<bool> SaveChangesAsync();
     }
 }

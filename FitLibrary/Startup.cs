@@ -1,4 +1,8 @@
 using FitLibrary.Contexts;
+using FitLibrary.Repositories;
+using FitLibrary.Repositories.Impls;
+using FitLibrary.Services;
+using FitLibrary.Services.Impls;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +27,11 @@ namespace FitLibrary
         {
             var connectionString = Environment.GetEnvironmentVariable("FIT_LIBRARY_CONNECTION");
             services.AddDbContext<FitLibraryContext>(options => options.UseSqlServer(connectionString));
+            
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<ITrainingPlanService, TrainingPlanService>();
+            services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
