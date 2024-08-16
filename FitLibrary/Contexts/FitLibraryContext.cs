@@ -1,4 +1,5 @@
-﻿using FitLibrary.Models;
+﻿using FitLibrary.Configurations;
+using FitLibrary.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitLibrary.Contexts
@@ -9,6 +10,15 @@ namespace FitLibrary.Contexts
 
         public FitLibraryContext(DbContextOptions<FitLibraryContext> options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
+            modelBuilder.ApplyConfiguration(new TrainingPlanConfiguration());
         }
     }
 }
