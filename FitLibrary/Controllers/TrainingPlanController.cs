@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FitLibrary.WebAPI.Controllers
+namespace FitLibrary.Controllers
 {
     [ApiController]
     [Route("api/trainingPlan")]
