@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FitLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8133bd8188955012dff8badd749159bb32b58fa8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbbb1e08d907fecf3ffa3be8aef688f5bfe2f0bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("FitLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FitLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

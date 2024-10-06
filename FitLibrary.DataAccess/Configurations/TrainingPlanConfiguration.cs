@@ -16,14 +16,26 @@ namespace FitLibrary.DataAccess.Configurations
                 .HasMaxLength(64)
                 .IsRequired();
 
+            builder.Property(tp => tp.Description)
+                .HasMaxLength(128)
+                .IsRequired();
+
             builder.Property(tp => tp.Sport)
                 .HasMaxLength(64)
                 .IsRequired();
+
+            builder.Property(tp => tp.Price)
+                .HasPrecision(10, 2)
+                .IsRequired();
+
+            builder.Property(tp => tp.Rating)
+                .HasPrecision(3, 2);
 
             builder.HasOne(tp => tp.Creator)
                 .WithMany(c => c.TrainingPlans)
                 .HasForeignKey(tp => tp.CreatorId)
                 .OnDelete(DeleteBehavior.NoAction);
+
 
             builder.HasMany(tp => tp.Exercises)
                 .WithOne(e => e.TrainingPlan)
