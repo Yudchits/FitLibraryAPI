@@ -16,6 +16,8 @@ namespace FitLibrary.WebAPI
 {
     public class Startup
     {
+        private readonly string allowSpecificOrigins = "_allowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +34,17 @@ namespace FitLibrary.WebAPI
 
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(allowSpecificOrigins, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .SetIsOriginAllowedToAllowWildcardSubdomains();
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -52,6 +65,8 @@ namespace FitLibrary.WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(allowSpecificOrigins);
 
             app.UseAuthorization();
 
