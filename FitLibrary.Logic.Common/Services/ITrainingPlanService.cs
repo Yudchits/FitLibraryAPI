@@ -6,7 +6,7 @@ namespace FitLibrary.Logic.Common.Services
 {
     public interface ITrainingPlanService
     {
-        Task<ICollection<TrainingPlanFullBLL>> GetAllTrainingPlansAsync();
+        Task<ICollection<TrainingPlanShortBLL>> GetAllTrainingPlansAsync();
         Task<TrainingPlanFullBLL> GetTrainingPlanByIdAsync(int id);
         Task<int> CreateTrainingPlanAsync(TrainingPlanShortBLL plan);
         Task<int> UpdateTrainingPlanAsync(TrainingPlanShortBLL plan);

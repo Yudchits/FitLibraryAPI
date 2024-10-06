@@ -19,7 +19,7 @@ namespace FitLibrary.Controllers
 
         [HttpGet]
         [Route("getAllTrainingPlans")]
-        [ProducesResponseType(typeof(ICollection<TrainingPlanFullBLL>), 200)]
+        [ProducesResponseType(typeof(ICollection<TrainingPlanShortBLL>), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllTrainingPlansAsync()

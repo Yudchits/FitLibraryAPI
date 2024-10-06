@@ -20,10 +20,10 @@ namespace FitLibrary.Logic.Services
             _mapper = mapper;
         }
 
-        public async Task<ICollection<TrainingPlanFullBLL>> GetAllTrainingPlansAsync()
+        public async Task<ICollection<TrainingPlanShortBLL>> GetAllTrainingPlansAsync()
         {
             return await _repository.GetAllTrainingPlansAsync()
-                .ContinueWith(result => _mapper.Map<ICollection<TrainingPlanFullBLL>>(result.Result));
+                .ContinueWith(result => _mapper.Map<ICollection<TrainingPlanShortBLL>>(result.Result));
         }
 
         public async Task<TrainingPlanFullBLL> GetTrainingPlanByIdAsync(int id)
