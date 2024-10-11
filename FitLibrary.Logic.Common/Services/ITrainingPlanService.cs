@@ -8,8 +8,8 @@ namespace FitLibrary.Logic.Common.Services
     {
         Task<ICollection<TrainingPlanShortBLL>> GetAllTrainingPlansAsync();
         Task<TrainingPlanFullBLL> GetTrainingPlanByIdAsync(int id);
-        Task<int> CreateTrainingPlanAsync(TrainingPlanShortBLL plan);
-        Task<int> UpdateTrainingPlanAsync(TrainingPlanShortBLL plan);
+        Task<int> CreateTrainingPlanAsync(TrainingPlanFullBLL plan);
+        Task<int> UpdateTrainingPlanAsync(TrainingPlanFullBLL plan);
         Task<int> DeleteTrainingPlanByIdAsync(int id);
         Task<bool> TrainingPlanIdExistsAsync(int id);
     }

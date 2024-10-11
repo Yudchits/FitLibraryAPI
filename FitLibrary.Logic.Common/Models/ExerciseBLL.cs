@@ -10,6 +10,5 @@
         public double Weight { get; set; }
         public string Time { get; set; }
         public string RestPeriod { get; set; }
-        public int TrainingPlanId { get; set; }
     }
 }

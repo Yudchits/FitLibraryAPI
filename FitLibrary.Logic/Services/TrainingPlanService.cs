@@ -32,13 +32,13 @@ namespace FitLibrary.Logic.Services
                 .ContinueWith(result => _mapper.Map<TrainingPlanFullBLL>(result.Result));
         }
 
-        public async Task<int> CreateTrainingPlanAsync(TrainingPlanShortBLL plan)
+        public async Task<int> CreateTrainingPlanAsync(TrainingPlanFullBLL plan)
         {
             var planMapped = _mapper.Map<TrainingPlanDb>(plan);
             return await _repository.CreateTrainingPlanAsync(planMapped);
         }
 
-        public async Task<int> UpdateTrainingPlanAsync(TrainingPlanShortBLL plan)
+        public async Task<int> UpdateTrainingPlanAsync(TrainingPlanFullBLL plan)
         {
             var planMapped = _mapper.Map<TrainingPlanDb>(plan);
             return await _repository.UpdateTrainingPlanAsync(planMapped);

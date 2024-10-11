@@ -69,7 +69,7 @@ namespace FitLibrary.Controllers
         [Route("createTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateTrainingPlanAsync([FromBody] TrainingPlanShortBLL plan)
+        public async Task<IActionResult> CreateTrainingPlanAsync([FromBody] TrainingPlanFullBLL plan)
         {
             var planId = await _service.CreateTrainingPlanAsync(plan);
 
@@ -86,7 +86,7 @@ namespace FitLibrary.Controllers
         [Route("updateTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateTrainingPlanAsync([FromBody] TrainingPlanShortBLL plan)
+        public async Task<IActionResult> UpdateTrainingPlanAsync([FromBody] TrainingPlanFullBLL plan)
         {
             var planId = await _service.UpdateTrainingPlanAsync(plan);
 
