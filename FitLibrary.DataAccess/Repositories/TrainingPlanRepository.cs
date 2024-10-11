@@ -27,6 +27,7 @@ namespace FitLibrary.DataAccess.Repositories
         {
             return await _context.TrainingPlans
                 .Include(tp => tp.Creator)
+                .Include(tp => tp.Exercises)
                 .FirstOrDefaultAsync(plan => plan.Id == id);
         }
 
