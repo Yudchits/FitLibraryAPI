@@ -20,6 +20,10 @@ namespace FitLibrary.DataAccess.Configurations
                 .HasMaxLength(128)
                 .IsRequired();
 
+            builder.Property(tp => tp.Image)
+                .HasMaxLength(256)
+                .IsRequired();
+
             builder.Property(tp => tp.Sport)
                 .HasMaxLength(64)
                 .IsRequired();
