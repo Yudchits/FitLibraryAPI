@@ -78,3 +78,4 @@ D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.Logic.C
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.Logic.pdb
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.DataAccess.Common.pdb
 D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\FitLibrary.sourcelink.json
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\CloudinaryDotNet.dll

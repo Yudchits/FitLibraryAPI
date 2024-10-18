@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using FitLibrary.Logic.Common.Models;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
-namespace FitLibrary.Logic.Common.Models
+namespace FitLibrary.Models
 {
-    public class TrainingPlanFullBLL
+    public class TrainingPlanPL
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public IFormFile Image { get; set; }
         public string Sport { get; set; }
         public decimal Price { get; set; }
         public decimal Rating { get; set; }

@@ -1,5 +1,7 @@
-﻿using FitLibrary.Logic.Common.Models;
+﻿using AutoMapper;
+using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
+using FitLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,10 +13,12 @@ namespace FitLibrary.Controllers
     public class TrainingPlanController : ControllerBase
     {
         private readonly ITrainingPlanService _service;
+        private readonly IPhotoService _photoService;
 
-        public TrainingPlanController(ITrainingPlanService service)
+        public TrainingPlanController(ITrainingPlanService service, IPhotoService photoService, IMapper mapper)
         {
             _service = service;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -69,9 +73,29 @@ namespace FitLibrary.Controllers
         [Route("createTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateTrainingPlanAsync([FromBody] TrainingPlanFullBLL plan)
+        public async Task<IActionResult> CreateTrainingPlanAsync([FromForm] TrainingPlanPL plan)
         {
-            var planId = await _service.CreateTrainingPlanAsync(plan);
+            string photoUrl = string.Empty;
+            if (plan.Image.Length > 0)
+            {
+                var uploadResult = await _photoService.AddPhotoAsync(plan.Image);
+                photoUrl = uploadResult.Url.ToString();
+            }
+
+            var planBLL = new TrainingPlanFullBLL
+            {
+                Id = plan.Id,
+                Name = plan.Name,
+                Description = plan.Description,
+                Image = photoUrl,
+                Sport = plan.Sport,
+                Price = plan.Price,
+                Rating = plan.Rating,
+                CreatorId = plan.CreatorId,
+                Exercises = plan.Exercises
+            };
+
+            var planId = await _service.CreateTrainingPlanAsync(planBLL);
 
             if (planId == 0)
             {

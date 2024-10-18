@@ -1,6 +1,7 @@
 using FitLibrary.DataAccess.Common.Repositories;
 using FitLibrary.DataAccess.Contexts;
 using FitLibrary.DataAccess.Repositories;
+using FitLibrary.Logic.Common.Helpers;
 using FitLibrary.Logic.Common.Services;
 using FitLibrary.Logic.Services;
 using Microsoft.AspNetCore.Builder;
@@ -29,11 +30,18 @@ namespace FitLibrary.WebAPI
         {
             var connectionString = Environment.GetEnvironmentVariable("FIT_LIBRARY_CONNECTION");
             services.AddDbContext<FitLibraryContext>(options => options.UseSqlServer(connectionString));
-            
+
+            var cloudinaryUrl = Environment.GetEnvironmentVariable("CLOUDINARY_URL");
+            services.Configure<CloudinarySettings>(options =>
+            {
+                options.Url = cloudinaryUrl;
+            });
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
 
             services.AddCors(options =>
             {
