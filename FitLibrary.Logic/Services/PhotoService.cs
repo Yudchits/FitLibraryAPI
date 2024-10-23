@@ -1,8 +1,8 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using FitLibrary.Logic.Common.Helpers;
+using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
@@ -17,18 +17,29 @@ namespace FitLibrary.Logic.Services
             _cloudinary = new Cloudinary(config.Value.Url);
         }
 
-        public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
+        public async Task<ImageUploadResult> AddPhotoAsync(PhotoBLL photo)
         {
             var uploadResult = new ImageUploadResult();
-            if (file.Length > 0)
+
+            var photoFile = photo?.Photo;
+            if (photoFile?.Length > 0)
             {
-                using var stream = file.OpenReadStream();
-                var uploadParams = new ImageUploadParams
+                using (var stream = photoFile.OpenReadStream())
                 {
-                    File = new FileDescription(file.FileName, stream),
-                    Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face")
-                };
-                uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                    int width = photo.Width > 0 ? photo.Width : 750;
+                    int height = photo.Height > 0 ? photo.Height : 500;
+
+                    var uploadParams = new ImageUploadParams
+                    {
+                        File = new FileDescription(photoFile.FileName, stream),
+                        Transformation = new Transformation()
+                            .Width(width)
+                            .Height(height)
+                            .Crop("fill")
+                            .Gravity("face")
+                    };
+                    uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                }
             }
             return uploadResult;
         }
