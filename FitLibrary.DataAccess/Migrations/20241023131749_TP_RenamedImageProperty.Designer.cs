@@ -4,14 +4,16 @@ using FitLibrary.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(FitLibraryContext))]
-    partial class FitLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20241023131749_TP_RenamedImageProperty")]
+    partial class TP_RenamedImageProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
