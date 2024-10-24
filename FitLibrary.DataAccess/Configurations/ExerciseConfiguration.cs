@@ -16,16 +16,8 @@ namespace FitLibrary.DataAccess.Configurations
                 .HasMaxLength(64)
                 .IsRequired();
 
-            builder.Property(e => e.Time)
-                .HasMaxLength(64);
-
             builder.Property(e => e.Weight)
                 .HasPrecision(10, 2);
-
-            builder.Property(e => e.RestPeriod)
-                .HasMaxLength(64)
-                .IsRequired();
-
         }
     }
 }

@@ -8,10 +8,10 @@ namespace FitLibrary.Logic.Common.Models
         public int Week { get; set; }
         public Weekday Weekday { get; set; }
         public string ExerciseName { get; set; }
-        public int Sets { get; set; }
-        public int Repetitions { get; set; }
-        public double Weight { get; set; }
-        public string Time { get; set; }
-        public string RestPeriod { get; set; }
+        public int? Sets { get; set; }
+        public int? Repetitions { get; set; }
+        public double? Weight { get; set; }
+        public int? Time { get; set; }
+        public int? RestPeriod { get; set; }
     }
 }
