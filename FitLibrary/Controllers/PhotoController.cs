@@ -31,7 +31,7 @@ namespace FitLibrary.Controllers
 
                 if (uploadResult.StatusCode == HttpStatusCode.OK)
                 {
-                    return Ok(uploadResult.Url.ToString());
+                    return Ok(new { photoUrl = uploadResult.Url.ToString() });
                 }
             }
 

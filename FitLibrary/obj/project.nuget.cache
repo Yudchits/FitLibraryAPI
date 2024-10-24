@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ftbfIcGhxCQvhgq+jT+mgy7Av7/W9WGntKkvHnCaS+FTMyGADrzTgKaCm4fNYqlMYAMlACA5SE2C/ZMDgaNH8Q==",
+  "dgSpecHash": "cDQGGahj4bS74PaMEdQ8/DMOWbTDLEMXdL+PQfTvlt6roHEYTfgYaEXyPBhGdpBVDqltWjxvp2huamPINa8o0g==",
   "success": true,
   "projectFilePath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
+    "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.configuration\\5.0.0\\microsoft.extensions.configuration.5.0.0.nupkg.sha512",
     "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.2\\microsoft.extensions.dependencyinjection.5.0.2.nupkg.sha512",
     "C:\\Users\\pashk\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
