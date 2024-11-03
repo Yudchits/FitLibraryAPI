@@ -4,6 +4,9 @@ using FitLibrary.Logic.Common.Helpers;
 using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
 using Microsoft.Extensions.Options;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Services
@@ -19,29 +22,30 @@ namespace FitLibrary.Logic.Services
 
         public async Task<ImageUploadResult> AddPhotoAsync(PhotoBLL photo)
         {
-            var uploadResult = new ImageUploadResult();
-
-            var photoFile = photo?.Photo;
-            if (photoFile?.Length > 0)
+            using (var memoryStream = new MemoryStream())
             {
-                using (var stream = photoFile.OpenReadStream())
+                using (var image = await Image.LoadAsync(photo.Photo.OpenReadStream()))
                 {
-                    int width = photo.Width > 0 ? photo.Width : 750;
-                    int height = photo.Height > 0 ? photo.Height : 500;
+                    image.Mutate(x => x.Crop(new Rectangle(
+                        photo.FrameLeft,
+                        photo.FrameTop,
+                        photo.FrameWidth,
+                        photo.FrameHeight)));
 
-                    var uploadParams = new ImageUploadParams
-                    {
-                        File = new FileDescription(photoFile.FileName, stream),
-                        Transformation = new Transformation()
-                            .Width(width)
-                            .Height(height)
-                            .Crop("fill")
-                            .Gravity("face")
-                    };
-                    uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                    image.Mutate(x => x.Resize(photo.PhotoWidth, photo.PhotoHeight));
+
+                    await image.SaveAsJpegAsync(memoryStream);
+                    memoryStream.Seek(0, SeekOrigin.Begin);
                 }
+
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(photo.Photo.FileName, memoryStream)
+                };
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+                return uploadResult;
             }
-            return uploadResult;
         }
 
         public async Task<DeletionResult> DeletePhotoAsync(string publicId)
