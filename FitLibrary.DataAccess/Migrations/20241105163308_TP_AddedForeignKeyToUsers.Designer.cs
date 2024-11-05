@@ -4,14 +4,16 @@ using FitLibrary.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(FitLibraryContext))]
-    partial class FitLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20241105163308_TP_AddedForeignKeyToUsers")]
+    partial class TP_AddedForeignKeyToUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
