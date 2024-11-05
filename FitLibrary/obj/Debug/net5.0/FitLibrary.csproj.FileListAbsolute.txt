@@ -80,3 +80,9 @@ D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\FitLibrary.DataAcc
 D:\Projects\C#Projects\FitLibrary\FitLibrary\obj\Debug\net5.0\FitLibrary.sourcelink.json
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\CloudinaryDotNet.dll
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\SixLabors.ImageSharp.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll

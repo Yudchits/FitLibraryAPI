@@ -4,14 +4,16 @@ using FitLibrary.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(FitLibraryContext))]
-    partial class FitLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20241105160701_U_TemporaryDeletedKey")]
+    partial class U_TemporaryDeletedKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,6 +103,16 @@ namespace FitLibrary.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TrainingPlans");
+                });
+
+            modelBuilder.Entity("FitLibrary.DataAccess.Common.Models.UserDb", b =>
+                {
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FitLibrary.DataAccess.Common.Models.ExerciseDb", b =>

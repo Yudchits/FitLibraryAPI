@@ -8,12 +8,7 @@ namespace FitLibrary.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<UserDb> builder)
         {
-            builder.ToTable("Users")
-                .HasNoKey();
-
-            builder.Property(u => u.Name)
-                .HasMaxLength(64)
-                .IsRequired();
+            //builder.ToTable("Users");
         }
     }
 }

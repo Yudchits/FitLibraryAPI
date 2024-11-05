@@ -1,5 +1,6 @@
 ﻿using FitLibrary.DataAccess.Common.Models;
 using FitLibrary.DataAccess.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitLibrary.DataAccess.Contexts
@@ -16,7 +17,7 @@ namespace FitLibrary.DataAccess.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            //modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
             modelBuilder.ApplyConfiguration(new TrainingPlanConfiguration());
         }
