@@ -70,9 +70,6 @@ namespace FitLibrary.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -103,24 +100,15 @@ namespace FitLibrary.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
-
                     b.ToTable("TrainingPlans");
                 });
 
             modelBuilder.Entity("FitLibrary.DataAccess.Common.Models.UserDb", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
-
-                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
@@ -138,23 +126,7 @@ namespace FitLibrary.DataAccess.Migrations
 
             modelBuilder.Entity("FitLibrary.DataAccess.Common.Models.TrainingPlanDb", b =>
                 {
-                    b.HasOne("FitLibrary.DataAccess.Common.Models.UserDb", "Creator")
-                        .WithMany("TrainingPlans")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-                });
-
-            modelBuilder.Entity("FitLibrary.DataAccess.Common.Models.TrainingPlanDb", b =>
-                {
                     b.Navigation("Exercises");
-                });
-
-            modelBuilder.Entity("FitLibrary.DataAccess.Common.Models.UserDb", b =>
-                {
-                    b.Navigation("TrainingPlans");
                 });
 #pragma warning restore 612, 618
         }

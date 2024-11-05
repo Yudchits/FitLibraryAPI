@@ -19,14 +19,14 @@ namespace FitLibrary.DataAccess.Repositories
         public async Task<ICollection<TrainingPlanDb>> GetAllTrainingPlansAsync()
         {
             return await _context.TrainingPlans
-                .Include(tp => tp.Creator)
+                //.Include(tp => tp.Creator)
                 .ToListAsync();
         }
 
         public async Task<TrainingPlanDb> GetTrainingPlanByIdAsync(int id)
         {
             return await _context.TrainingPlans
-                .Include(tp => tp.Creator)
+                //.Include(tp => tp.Creator)
                 .Include(tp => tp.Exercises)
                 .FirstOrDefaultAsync(plan => plan.Id == id);
         }
