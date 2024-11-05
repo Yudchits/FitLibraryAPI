@@ -5,6 +5,6 @@ namespace FitLibrary.DataAccess.Common.Models
 {
     public class UserDb : IdentityUser
     {
-        public ICollection<TrainingPlanDb> TrainingPlans { get; set; }
+        //public virtual ICollection<TrainingPlanDb> TrainingPlans { get; set; }
     }
 }

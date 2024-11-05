@@ -35,9 +35,9 @@ namespace FitLibrary.WebAPI
         {
             services.AddDbContext<FitLibraryContext>(options => options.UseSqlServer(Configuration["FIT_LIBRARY_CONNECTION"]));
 
-            /*services.AddIdentity<UserDb, IdentityRole>()
+            services.AddIdentity<UserDb, IdentityRole>()
                 .AddEntityFrameworkStores<FitLibraryContext>()
-                .AddDefaultTokenProviders();*/
+                .AddDefaultTokenProviders();
 
             services.Configure<CloudinarySettings>(options =>
             {

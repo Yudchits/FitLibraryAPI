@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitLibrary.DataAccess.Contexts
 {
-    public class FitLibraryContext : DbContext
+    public class FitLibraryContext : IdentityDbContext<UserDb>
     {
         public DbSet<TrainingPlanDb> TrainingPlans { get; set; }
 
@@ -17,7 +17,6 @@ namespace FitLibrary.DataAccess.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
             modelBuilder.ApplyConfiguration(new TrainingPlanConfiguration());
         }
