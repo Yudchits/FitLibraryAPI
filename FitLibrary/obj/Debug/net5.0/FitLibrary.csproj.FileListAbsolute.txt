@@ -86,3 +86,5 @@ D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.AspNetCo
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
 D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\DotNetEnv.dll
+D:\Projects\C#Projects\FitLibrary\FitLibrary\bin\Debug\net5.0\Sprache.dll

@@ -49,6 +49,7 @@ namespace FitLibrary.WebAPI
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddCors(options =>
@@ -103,6 +104,7 @@ namespace FitLibrary.WebAPI
 
             app.UseCors(allowSpecificOrigins);
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

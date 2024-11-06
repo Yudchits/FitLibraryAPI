@@ -22,9 +22,8 @@ namespace FitLibrary.Logic.Services
         {
             var authClaims = new[]
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var isInt = int.TryParse(_configuration["TOKEN_EXPIRES_DAY"], out int dayExpires);

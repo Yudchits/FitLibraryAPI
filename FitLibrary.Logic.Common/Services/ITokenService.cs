@@ -1,5 +1,4 @@
 ﻿using FitLibrary.Logic.Common.Models;
-using System.Collections.Generic;
 
 namespace FitLibrary.Logic.Common.Services
 {
