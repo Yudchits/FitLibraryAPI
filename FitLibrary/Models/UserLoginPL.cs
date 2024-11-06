@@ -1,4 +1,4 @@
-﻿namespace FitLibrary.Models
+﻿namespace FitLibrary.WebAPI.Models
 {
     public class UserLoginPL
     {

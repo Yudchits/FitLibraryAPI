@@ -1,11 +1,11 @@
 ﻿using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
-using FitLibrary.Models;
+using FitLibrary.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace FitLibrary.Controllers
+namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/auth")]
@@ -33,20 +33,21 @@ namespace FitLibrary.Controllers
                 Password = registerUser.Password
             };
 
+            string message;
             try
             {
                 await _authService.RegisterAsync(user);
                 
                 var token = _tokenService.GenerateToken(user);
 
-                return Ok(new { token });
+                return Ok(new { Token = token });
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Model", ex.Message);
+                message = ex.Message;
             }
 
-            return StatusCode(500, ModelState);
+            return StatusCode(500, new { Message = message });
         }
 
         [HttpPost]
@@ -61,19 +62,20 @@ namespace FitLibrary.Controllers
                 Password = loginUser.Password
             };
 
+            string message;
             try
             {
                 await _authService.LoginAsync(user);
                 var token = _tokenService.GenerateToken(user);
 
-                return Ok(new { token });
+                return Ok(new { Token = token });
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Model", ex.Message);
+                message = ex.Message;
             }
 
-            return StatusCode(500, ModelState);
+            return StatusCode(500, new { Message = message });
         }
     }
 }

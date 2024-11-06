@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitLibrary", "FitLibrary\FitLibrary.csproj", "{FB787269-D787-4E52-B788-4C7F4807C480}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitLibrary.WebAPI", "FitLibrary\FitLibrary.WebAPI.csproj", "{FB787269-D787-4E52-B788-4C7F4807C480}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitLibrary.Logic.Common", "FitLibrary.Logic.Common\FitLibrary.Logic.Common.csproj", "{E71CE986-E24F-425D-8ADE-3F8D3E8700D1}"
 EndProject

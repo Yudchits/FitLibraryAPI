@@ -14,13 +14,13 @@ namespace FitLibrary.Logic.Services
     {
         private readonly ITrainingPlanRepository _repository;
         private readonly IMapper _mapper;
-        private readonly string _defaultPhotoUrl;
+        private readonly IConfiguration _configuration;
 
         public TrainingPlanService(ITrainingPlanRepository repository, IMapper mapper, IConfiguration configuration)
         {
             _repository = repository;
             _mapper = mapper;
-            _defaultPhotoUrl = configuration["DefaultPhotoUrl"];
+            _configuration = configuration;
         }
 
         public async Task<ICollection<TrainingPlanShortBLL>> GetAllTrainingPlansAsync()
@@ -39,7 +39,7 @@ namespace FitLibrary.Logic.Services
         {
             if (plan.Photo == null || plan.Photo.Trim() == string.Empty)
             {
-                plan.Photo = _defaultPhotoUrl;
+                plan.Photo = _configuration["DEFAULT_PHOTO_URL"];
             }
 
             var planMapped = _mapper.Map<TrainingPlanDb>(plan);
@@ -48,6 +48,11 @@ namespace FitLibrary.Logic.Services
 
         public async Task<int> UpdateTrainingPlanAsync(TrainingPlanFullBLL plan)
         {
+            if (plan.Photo == null || plan.Photo.Trim() == string.Empty)
+            {
+                plan.Photo = _configuration["DEFAULT_PHOTO_URL"];
+            }
+
             var planMapped = _mapper.Map<TrainingPlanDb>(plan);
             return await _repository.UpdateTrainingPlanAsync(planMapped);
         }

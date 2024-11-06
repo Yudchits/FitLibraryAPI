@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FitLibrary.Controllers
+namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/trainingPlan")]
@@ -26,12 +26,6 @@ namespace FitLibrary.Controllers
         {
             var trainingPlans = await _service.GetAllTrainingPlansAsync();
 
-            if (trainingPlans == null)
-            {
-                ModelState.AddModelError("GET", "Error while getting list of training plans");
-                return StatusCode(500, ModelState);
-            }
-
             if (trainingPlans.Count == 0)
             {
                 return StatusCode(204);
@@ -43,23 +37,20 @@ namespace FitLibrary.Controllers
         [HttpGet]
         [Route("getTrainingPlanById")]
         [ProducesResponseType(typeof(TrainingPlanFullBLL), 200)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetTrainingPlanByIdAsync([FromQuery] int id)
         {
             var idExists = await _service.TrainingPlanIdExistsAsync(id);
-            if(!idExists)
+            if (!idExists)
             {
-                ModelState.AddModelError("GET", "There is no plan with id=" + id);
-                return BadRequest(ModelState);
+                return StatusCode(404, new { Message = "Тренировочный план не существует" });
             }
 
             var trainingPlan = await _service.GetTrainingPlanByIdAsync(id);
             if (trainingPlan == null)
             {
-                ModelState.AddModelError("GET", "Error while getting the training plan");
-                return StatusCode(500, ModelState);
+                return StatusCode(500, new { Message = "Не удалось найти тренировочный план. Попробуйте позже" });
             }
 
             return Ok(trainingPlan);
@@ -75,8 +66,7 @@ namespace FitLibrary.Controllers
 
             if (planId == 0)
             {
-                ModelState.AddModelError("POST", "Error while creating the training plan");
-                return StatusCode(500, ModelState);
+                return StatusCode(500, new { Message = "Не удалось создать тренировочный план. Попробуйте позже" });
             }
 
             return Ok(planId);
@@ -92,8 +82,7 @@ namespace FitLibrary.Controllers
 
             if (planId == 0)
             {
-                ModelState.AddModelError("PUT", "Error while updating the training plan");
-                return StatusCode(500, ModelState);
+                return StatusCode(500, new { Message = "Не удалось обновить тренировочный план. Попробуйте позже" });
             }
 
             return Ok(planId);
@@ -102,22 +91,20 @@ namespace FitLibrary.Controllers
         [HttpDelete]
         [Route("deleteTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
-        [ProducesResponseType(400)] 
+        [ProducesResponseType(404)] 
         [ProducesResponseType(500)]
         public async Task<IActionResult> DeleteTrainingPlanAsync([FromQuery] int id)
         {
             var idExists = await _service.TrainingPlanIdExistsAsync(id);
             if (!idExists)
             {
-                ModelState.AddModelError("GET", "There is no plan with id=" + id);
-                return BadRequest(ModelState);
+                return StatusCode(404, new { Message = "Тренировочный план не существует" });
             }
 
             var planId = await _service.DeleteTrainingPlanByIdAsync(id);
             if (planId == 0)
             {
-                ModelState.AddModelError("DELETE", "Error while deleting the training plan");
-                return StatusCode(500, ModelState);
+                return StatusCode(500, new { Message = "Не удалось удалить тренировочный план. Попробуйте позже" });
             }
 
             return Ok(id);

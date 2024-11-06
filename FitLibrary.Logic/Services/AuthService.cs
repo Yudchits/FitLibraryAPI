@@ -4,7 +4,6 @@ using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Services
@@ -30,7 +29,7 @@ namespace FitLibrary.Logic.Services
 
             if (!createResult.Succeeded)
             {
-                throw new InvalidOperationException(string.Join(", ", createResult.Errors.Select(e => e.Description)));
+                throw new InvalidOperationException("Не удалось зарегистрировать пользователя. Попробуйте позже");
             }
 
             await _userManager.AddToRoleAsync(userDb, UserRoles.TRAINEE);
@@ -42,14 +41,14 @@ namespace FitLibrary.Logic.Services
 
             if (user == null)
             {
-                throw new ArgumentException("There is no user with such email");
+                throw new ArgumentException("Пользователь с указанной почтой не существует");
             }
 
             var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, userBLL.Password);
 
             if (!isPasswordCorrect)
             {
-                throw new ArgumentException("Incorrect password");
+                throw new ArgumentException("Неверный пароль");
             }
         }
     }

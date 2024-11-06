@@ -19,14 +19,14 @@ namespace FitLibrary.DataAccess.Repositories
         public async Task<ICollection<TrainingPlanDb>> GetAllTrainingPlansAsync()
         {
             return await _context.TrainingPlans
-                //.Include(tp => tp.Creator)
+                .Include(tp => tp.Creator)
                 .ToListAsync();
         }
 
         public async Task<TrainingPlanDb> GetTrainingPlanByIdAsync(int id)
         {
             return await _context.TrainingPlans
-                //.Include(tp => tp.Creator)
+                .Include(tp => tp.Creator)
                 .Include(tp => tp.Exercises)
                 .FirstOrDefaultAsync(plan => plan.Id == id);
         }
@@ -47,10 +47,20 @@ namespace FitLibrary.DataAccess.Repositories
 
         public async Task<int> DeleteTrainingPlanByIdAsync(int id)
         {
-            var plan = await _context.TrainingPlans.SingleOrDefaultAsync(plan => plan.Id == id);
-            _context.TrainingPlans.Remove(plan);
-            var isDeleted = await SaveChangesAsync();
-            return isDeleted ? plan.Id : 0;
+            var plan = await _context.TrainingPlans.FirstOrDefaultAsync(plan => plan.Id == id);
+
+            if (plan != null)
+            {
+                _context.TrainingPlans.Remove(plan);
+                var isDeleted = await SaveChangesAsync();
+
+                if (isDeleted)
+                {
+                    return plan.Id;
+                }
+            }
+
+            return 0;
         }
 
         public async Task<bool> SaveChangesAsync()

@@ -2,10 +2,11 @@
 using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace FitLibrary.Controllers
+namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/photo")]
@@ -21,37 +22,41 @@ namespace FitLibrary.Controllers
         [HttpPost]
         [Route("addPhoto")]
         [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> AddPhotoAsync([FromForm] PhotoBLL photo)
         {
-            ImageUploadResult uploadResult = null;
             if (photo?.Photo?.Length > 0)
             {
-                uploadResult = await _photoService.AddPhotoAsync(photo);
+                ImageUploadResult uploadResult = await _photoService.AddPhotoAsync(photo);
 
                 if (uploadResult.StatusCode == HttpStatusCode.OK)
                 {
-                    return Ok(new { photoUrl = uploadResult.Url.ToString() });
+                    return Ok(new { PhotoUrl = uploadResult.Url.ToString() });
                 }
             }
 
-            return BadRequest(uploadResult?.Error.Message ?? "Photo wasn't loaded");
+            return StatusCode(500, "Не удалось загрузить фото. Попробуйте позже");
         }
 
         [HttpDelete]
         [Route("deletePhoto")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> DeletePhotoAsync([FromQuery] string publicId)
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeletePhotoAsync([FromBody] string publicUrl)
         {
-            var deletionResult = await _photoService.DeletePhotoAsync(publicId);
+            var publicId = publicUrl.Split("/").Last().Split(".").FirstOrDefault();
 
-            if (deletionResult?.StatusCode == HttpStatusCode.OK)
+            if (publicId != null && publicId.Trim().Length > 0)
             {
-                return NoContent();
+                var deletionResult = await _photoService.DeletePhotoAsync(publicId);
+
+                if (deletionResult?.StatusCode == HttpStatusCode.OK)
+                {
+                    return NoContent();
+                }
             }
 
-            return BadRequest(deletionResult?.Error.Message ?? $"Photo '{publicId}' wasn't deleted");
+            return StatusCode(500, "Не удалось удалить фото. Попробуйте позже");
         }
     }
 }
