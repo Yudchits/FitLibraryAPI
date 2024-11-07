@@ -8398,9 +8398,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.csproj",
-      "projectName": "FitLibrary",
-      "projectPath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.csproj",
+      "projectUniqueName": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.WebAPI.csproj",
+      "projectName": "FitLibrary.WebAPI",
+      "projectPath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.WebAPI.csproj",
       "packagesPath": "C:\\Users\\pashk\\.nuget\\packages\\",
       "outputPath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\obj\\",
       "projectStyle": "PackageReference",

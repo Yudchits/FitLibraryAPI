@@ -1,59 +1,58 @@
-﻿using FitLibrary.Logic.Common.Models;
+﻿using FitLibrary.DataAccess.Common.Helpers;
+using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
 using FitLibrary.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/auth")]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
         private readonly ITokenService _tokenService;
+        private readonly IRoleService _roleService;
 
-        public AuthController(IAuthService userService, ITokenService authService)
+        public AuthController(IAuthService authService, ITokenService tokenService, IRoleService roleService)
         {
-            _authService = userService;
-            _tokenService = authService;
+            _authService = authService;
+            _tokenService = tokenService;
+            _roleService = roleService;
         }
 
         [HttpPost]
         [Route("register")]
         [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(409)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> RegisterAsync([FromBody] UserRegisterPL registerUser)
         {
-            var user = new UserBLL
+            var userBLL = new UserBLL
             {
                 UserName = registerUser.UserName,
-                Email = registerUser.Email,
-                Password = registerUser.Password
+                Email = registerUser.Email
             };
 
-            string message;
-            try
-            {
-                await _authService.RegisterAsync(user);
-                
-                var token = _tokenService.GenerateToken(user);
+            Result<UserBLL> registerResult = await _authService.RegisterAsync(userBLL, registerUser.Password);
 
-                return Ok(new { Token = token });
-            }
-            catch (Exception ex)
+            if (!registerResult.Success)
             {
-                message = ex.Message;
+                return Unauthorized(new { registerResult.Message });
             }
 
-            return StatusCode(500, new { Message = message });
+            var token = _tokenService.GenerateToken(registerResult.Data, new string[] { UserRoles.TRAINEE });
+
+            return Ok(new { Token = token });
         }
 
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(500)]
+        [ProducesResponseType(401)]
         public async Task<IActionResult> LoginAsync([FromBody] UserLoginPL loginUser)
         {
             var user = new UserBLL
@@ -62,20 +61,23 @@ namespace FitLibrary.WebAPI.Controllers
                 Password = loginUser.Password
             };
 
-            string message;
-            try
-            {
-                await _authService.LoginAsync(user);
-                var token = _tokenService.GenerateToken(user);
+            Result<UserBLL> loginResult = await _authService.LoginAsync(user, loginUser.Password);
 
-                return Ok(new { Token = token });
-            }
-            catch (Exception ex)
+            if (!loginResult.Success)
             {
-                message = ex.Message;
+                return Unauthorized(new { loginResult.Message });
             }
 
-            return StatusCode(500, new { Message = message });
+            var roles = await _roleService.GetUserRolesAsync(loginResult.Data);
+
+            if (roles.Count == 0)
+            {
+                return Unauthorized(new { Message = "Отсутствуют какие-либо пользовательские роли. Обратитесь к администратору" });
+            }
+
+            var token = _tokenService.GenerateToken(loginResult.Data, roles);
+
+            return Ok(new { Token = token });
         }
     }
 }

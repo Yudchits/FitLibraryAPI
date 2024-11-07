@@ -1,23 +1,41 @@
-﻿using FitLibrary.DataAccess.Common.Helpers;
+﻿using AutoMapper;
+using FitLibrary.DataAccess.Common.Helpers;
 using FitLibrary.DataAccess.Common.Models;
+using FitLibrary.DataAccess.Common.Repositories;
 using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
-using Microsoft.AspNetCore.Identity;
-using System;
 using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<UserDb> _userManager;
+        private readonly IAuthRepository _repository;
+        private readonly IMapper _mapper;
 
-        public AuthService(UserManager<UserDb> userManager)
+        public AuthService(IAuthRepository repository, IMapper mapper)
         {
-            _userManager = userManager;
+            _repository = repository;
+            _mapper = mapper;
         }
 
-        public async Task RegisterAsync(UserBLL user)
+        public async Task<Result<UserBLL>> LoginAsync(UserBLL user, string password)
+        {
+            var userDb = _mapper.Map<UserDb>(user);
+            var result = await _repository.LoginAsync(userDb, password);
+
+            var userMapped = _mapper.Map<UserBLL>(result.Data);
+            if (result.Success)
+            {
+                return Result<UserBLL>.Ok(userMapped);
+            }
+            else
+            {
+                return Result<UserBLL>.Fail(result.Message);
+            }
+        }
+
+        public async Task<Result<UserBLL>> RegisterAsync(UserBLL user, string password)
         {
             var userDb = new UserDb
             {
@@ -25,30 +43,16 @@ namespace FitLibrary.Logic.Services
                 Email = user.Email
             };
 
-            var createResult = await _userManager.CreateAsync(userDb, user.Password);
+            var result = await _repository.RegisterAsync(userDb, password);
 
-            if (!createResult.Succeeded)
+            var userMapped = _mapper.Map<UserBLL>(result.Data);
+            if (result.Success)
             {
-                throw new InvalidOperationException("Не удалось зарегистрировать пользователя. Попробуйте позже");
+                return Result<UserBLL>.Ok(userMapped);
             }
-
-            await _userManager.AddToRoleAsync(userDb, UserRoles.TRAINEE);
-        }
-
-        public async Task LoginAsync(UserBLL userBLL)
-        {
-            var user = await _userManager.FindByEmailAsync(userBLL.Email);
-
-            if (user == null)
+            else
             {
-                throw new ArgumentException("Пользователь с указанной почтой не существует");
-            }
-
-            var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, userBLL.Password);
-
-            if (!isPasswordCorrect)
-            {
-                throw new ArgumentException("Неверный пароль");
+                return Result<UserBLL>.Fail(result.Message);
             }
         }
     }

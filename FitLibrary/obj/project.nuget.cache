@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VM+08AjL1uc1OsttcJpPUgC9jMfYWmCGJyCnvmk+nlymjfINsqS9XsZH6hmiHb9r9GGw3yPADyr4hanpy8SnHA==",
+  "dgSpecHash": "3++mwy8J1VoEgO1BnUBGXkb7LuOZ64/thvefWN2tA1MV7WcqVkvQDKJvEtP5MzXsyBnSZLMCLZYFknzMHNjnqw==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.csproj",
+  "projectFilePath": "D:\\Projects\\C#Projects\\FitLibrary\\FitLibrary\\FitLibrary.WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pashk\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\pashk\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

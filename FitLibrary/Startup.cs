@@ -49,8 +49,10 @@ namespace FitLibrary.WebAPI
             services.AddScoped<ITrainingPlanService, TrainingPlanService>();
             services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddCors(options =>
             {
