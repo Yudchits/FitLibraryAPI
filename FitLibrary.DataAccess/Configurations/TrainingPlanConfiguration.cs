@@ -35,10 +35,10 @@ namespace FitLibrary.DataAccess.Configurations
             builder.Property(tp => tp.Rating)
                 .HasPrecision(3, 2);
 
-            builder.HasOne(tp => tp.Creator)
+            /*builder.HasOne(tp => tp.Creator)
                 .WithMany(c => c.TrainingPlans)
                 .HasForeignKey(tp => tp.CreatorId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade);*/
 
             builder.HasMany(tp => tp.Exercises)
                 .WithOne(e => e.TrainingPlan)

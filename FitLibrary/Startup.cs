@@ -33,11 +33,7 @@ namespace FitLibrary.WebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FitLibraryContext>(options => options.UseSqlServer(Configuration["FIT_LIBRARY_CONNECTION"]));
-
-            services.AddIdentity<UserDb, IdentityRole>()
-                .AddEntityFrameworkStores<FitLibraryContext>()
-                .AddDefaultTokenProviders();
+            services.AddDbContext<FitLibraryContext>(options => options.UseSqlServer(Configuration["DB_CONNECTION"]));
 
             services.Configure<CloudinarySettings>(options =>
             {
@@ -58,7 +54,8 @@ namespace FitLibrary.WebAPI
             {
                 options.AddPolicy(allowSpecificOrigins, builder =>
                 {
-                    builder.WithOrigins(Configuration["CLIENT_URL"])
+                    builder
+                        .WithOrigins(Configuration["AUDIENCE"])
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .SetIsOriginAllowedToAllowWildcardSubdomains();
@@ -78,8 +75,8 @@ namespace FitLibrary.WebAPI
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["API_URL"],
-                        ValidAudience = Configuration["CLIENT_URL"],
+                        ValidIssuer = Configuration["ISSUER"],
+                        ValidAudience = Configuration["AUDIENCE"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT_SECRET"]))
                     };
                 });
@@ -106,7 +103,7 @@ namespace FitLibrary.WebAPI
 
             app.UseCors(allowSpecificOrigins);
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,11 +1,10 @@
 ﻿using FitLibrary.DataAccess.Common.Models;
 using FitLibrary.DataAccess.Configurations;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitLibrary.DataAccess.Contexts
 {
-    public class FitLibraryContext : IdentityDbContext<UserDb>
+    public class FitLibraryContext : DbContext
     {
         public DbSet<TrainingPlanDb> TrainingPlans { get; set; }
 

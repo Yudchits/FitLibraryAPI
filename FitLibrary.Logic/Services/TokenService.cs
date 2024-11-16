@@ -37,8 +37,8 @@ namespace FitLibrary.Logic.Services
             dayExpires = isInt ? dayExpires : 1;
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["API_URL"],
-                audience: _configuration["CLIENT_URL"],
+                issuer: _configuration["ISSUER"],
+                audience: _configuration["AUDIENCE"],
                 expires: DateTime.Now.AddDays(dayExpires),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(

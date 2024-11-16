@@ -39,8 +39,8 @@ namespace FitLibrary.Logic.Services
         {
             var userDb = new UserDb
             {
-                UserName = user.UserName,
-                Email = user.Email
+                //UserName = user.UserName,
+                //Email = user.Email
             };
 
             var result = await _repository.RegisterAsync(userDb, password);
