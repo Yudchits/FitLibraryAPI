@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Common.Services
 {
-    public interface IRoleService
+    public interface IUserService
     {
-        Task<Result<RoleBLL>> CreateAsync(RoleBLL role);
-        Task<RoleBLL> GetByNameAsync(string name);
+        Task<Result<UserBLL>> CreateAsync(UserBLL user);
+        Task<Result<UserBLL>> CheckPasswordAsync(UserBLL user);
     }
 }

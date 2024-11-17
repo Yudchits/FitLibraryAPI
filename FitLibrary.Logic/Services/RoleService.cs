@@ -1,35 +1,42 @@
 ﻿using AutoMapper;
+using FitLibrary.DataAccess.Common.Helpers;
 using FitLibrary.DataAccess.Common.Models;
+using FitLibrary.DataAccess.Common.Repositories;
 using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
-using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Services
 {
     public class RoleService : IRoleService
     {
+        private readonly IRoleRepository _repository;
         private readonly IMapper _mapper;
 
-        public RoleService(IMapper mapper)
+        public RoleService(IRoleRepository repository, IMapper mapper)
         {
+            _repository = repository;
             _mapper = mapper;
         }
 
-        public Task<bool> AddToRoleAsync(UserBLL user, string role)
+        public async Task<Result<RoleBLL>> CreateAsync(RoleBLL role)
         {
-            throw new System.NotImplementedException();
+            var roleDb = _mapper.Map<RoleDb>(role);
+            var createResult = await _repository.CreateAsync(roleDb);
+            if (!createResult.Success)
+            {
+                return Result<RoleBLL>.Fail(createResult.Message);
+            }
+
+            var roleBLL = _mapper.Map<RoleBLL>(roleDb);
+            return Result<RoleBLL>.Ok(roleBLL);
         }
 
-        public Task<IList<string>> GetUserRolesAsync(UserBLL user)
+        public async Task<RoleBLL> GetByNameAsync(string name)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> RemoveFromRoleAsync(UserBLL user, string role)
-        {
-            throw new System.NotImplementedException();
+            return await _repository
+                .GetByNameAsync(name)
+                .ContinueWith(result => _mapper.Map<RoleBLL>(result.Result));
         }
     }
 }

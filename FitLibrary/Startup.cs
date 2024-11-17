@@ -1,4 +1,3 @@
-using FitLibrary.DataAccess.Common.Models;
 using FitLibrary.DataAccess.Common.Repositories;
 using FitLibrary.DataAccess.Contexts;
 using FitLibrary.DataAccess.Repositories;
@@ -8,7 +7,6 @@ using FitLibrary.Logic.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,9 +44,10 @@ namespace FitLibrary.WebAPI
             services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
 
             services.AddCors(options =>
             {
@@ -103,7 +102,7 @@ namespace FitLibrary.WebAPI
 
             app.UseCors(allowSpecificOrigins);
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

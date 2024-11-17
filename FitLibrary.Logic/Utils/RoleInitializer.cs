@@ -1,7 +1,9 @@
 ﻿using FitLibrary.DataAccess.Common.Helpers;
-using Microsoft.AspNetCore.Identity;
+using FitLibrary.Logic.Common.Models;
+using FitLibrary.Logic.Common.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Utils
@@ -10,15 +12,29 @@ namespace FitLibrary.Logic.Utils
     {
         public static async Task InitializeRoles(IServiceProvider serviceProvider)
         {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roleService = serviceProvider.GetRequiredService<IRoleService>();
 
-            string[] roles = { UserRoles.ADMIN, UserRoles.COACH, UserRoles.TRAINEE };
+            var roles = new List<RoleBLL>
+            {
+                new RoleBLL
+                {
+                    Name = UserRoles.TRAINEE
+                },
+                new RoleBLL
+                {
+                    Name = UserRoles.COACH
+                },
+                new RoleBLL
+                {
+                    Name = UserRoles.ADMIN
+                }
+            };
 
             foreach (var role in roles)
             {
-                if (!await roleManager.RoleExistsAsync(role))
+                if (await roleService.GetByNameAsync(role.Name) == null)
                 {
-                    await roleManager.CreateAsync(new IdentityRole(role));
+                    await roleService.CreateAsync(role);
                 }
             }
         }

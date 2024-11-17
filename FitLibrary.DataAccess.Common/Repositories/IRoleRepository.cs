@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 
 namespace FitLibrary.DataAccess.Common.Repositories
 {
-    public interface IAuthRepository
+    public interface IRoleRepository
     {
-        Task<Result<UserDb>> RegisterAsync(UserDb user, string password);
-        Task<Result<UserDb>> LoginAsync(UserDb user, string password);
+        Task<Result<RoleDb>> CreateAsync(RoleDb role);
+        Task<RoleDb> GetByNameAsync(string name);
+        Task<bool> SaveChangesAsync();
     }
 }
