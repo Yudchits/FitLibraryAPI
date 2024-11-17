@@ -4,6 +4,7 @@ using FitLibrary.DataAccess.Repositories;
 using FitLibrary.Logic.Common.Helpers;
 using FitLibrary.Logic.Common.Services;
 using FitLibrary.Logic.Services;
+using FitLibrary.WebAPI.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -95,6 +96,8 @@ namespace FitLibrary.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FitLibrary.WebAPI v1"));
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 
