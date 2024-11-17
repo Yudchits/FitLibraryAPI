@@ -1,4 +1,5 @@
-﻿using FitLibrary.DataAccess.Common.Models;
+﻿using FitLibrary.DataAccess.Common.Helpers;
+using FitLibrary.DataAccess.Common.Models;
 using FitLibrary.DataAccess.Common.Repositories;
 using FitLibrary.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -16,51 +17,55 @@ namespace FitLibrary.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<ICollection<TrainingPlanDb>> GetAllTrainingPlansAsync()
+        public async Task<ICollection<TrainingPlanDb>> GetAllAsync()
         {
             return await _context.TrainingPlans
-                //.Include(tp => tp.Creator)
+                .Include(tp => tp.Creator)
                 .ToListAsync();
         }
 
-        public async Task<TrainingPlanDb> GetTrainingPlanByIdAsync(int id)
+        public async Task<TrainingPlanDb> GetByIdAsync(int id)
         {
             return await _context.TrainingPlans
-                //.Include(tp => tp.Creator)
+                .Include(tp => tp.Creator)
                 .Include(tp => tp.Exercises)
                 .FirstOrDefaultAsync(plan => plan.Id == id);
         }
 
-        public async Task<int> CreateTrainingPlanAsync(TrainingPlanDb plan)
+        public async Task<Result<int>> CreateAsync(TrainingPlanDb plan)
         {
-            await _context.TrainingPlans.AddAsync(plan);
+            _context.TrainingPlans.Add(plan);
             var isCreated = await SaveChangesAsync();
-            return isCreated ? plan.Id : 0;
+            if (!isCreated)
+            {
+                return Result<int>.Fail("Не удалось создать план тренировок");
+            }
+
+            return Result<int>.Ok(plan.Id);
         }
 
-        public async Task<int> UpdateTrainingPlanAsync(TrainingPlanDb plan)
+        public async Task<Result<int>> UpdateAsync(TrainingPlanDb plan)
         {
             _context.TrainingPlans.Update(plan);
             var isUpdated = await SaveChangesAsync();
-            return isUpdated ? plan.Id : 0;
-        }
-
-        public async Task<int> DeleteTrainingPlanByIdAsync(int id)
-        {
-            var plan = await _context.TrainingPlans.FirstOrDefaultAsync(plan => plan.Id == id);
-
-            if (plan != null)
+            if (!isUpdated)
             {
-                _context.TrainingPlans.Remove(plan);
-                var isDeleted = await SaveChangesAsync();
-
-                if (isDeleted)
-                {
-                    return plan.Id;
-                }
+                return Result<int>.Fail("Не удалось обновить план тренировок");
             }
 
-            return 0;
+            return Result<int>.Ok(plan.Id);
+        }
+
+        public async Task<Result<int>> DeleteAsync(TrainingPlanDb plan)
+        {
+            _context.TrainingPlans.Remove(plan);
+            var isDeleted = await SaveChangesAsync();
+            if (!isDeleted)
+            {
+                return Result<int>.Fail("Не удалось удалить план тренировок");
+            }
+
+            return Result<int>.Ok(plan.Id);
         }
 
         public async Task<bool> SaveChangesAsync()

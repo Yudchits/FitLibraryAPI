@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using FitLibrary.DataAccess.Common.Helpers;
 using FitLibrary.DataAccess.Common.Models;
 using FitLibrary.DataAccess.Common.Repositories;
 using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FitLibrary.Logic.Services
@@ -23,19 +23,19 @@ namespace FitLibrary.Logic.Services
             _configuration = configuration;
         }
 
-        public async Task<ICollection<TrainingPlanShortBLL>> GetAllTrainingPlansAsync()
+        public async Task<ICollection<TrainingPlanShortBLL>> GetAllAsync()
         {
-            return await _repository.GetAllTrainingPlansAsync()
+            return await _repository.GetAllAsync()
                 .ContinueWith(result => _mapper.Map<ICollection<TrainingPlanShortBLL>>(result.Result));
         }
 
-        public async Task<TrainingPlanFullBLL> GetTrainingPlanByIdAsync(int id)
+        public async Task<TrainingPlanFullBLL> GetByIdAsync(int id)
         {
-            return await _repository.GetTrainingPlanByIdAsync(id)
+            return await _repository.GetByIdAsync(id)
                 .ContinueWith(result => _mapper.Map<TrainingPlanFullBLL>(result.Result));
         }
 
-        public async Task<int> CreateTrainingPlanAsync(TrainingPlanFullBLL plan)
+        public async Task<Result<int>> CreateAsync(TrainingPlanFullBLL plan)
         {
             if (plan.Photo == null || plan.Photo.Trim() == string.Empty)
             {
@@ -43,10 +43,10 @@ namespace FitLibrary.Logic.Services
             }
 
             var planMapped = _mapper.Map<TrainingPlanDb>(plan);
-            return await _repository.CreateTrainingPlanAsync(planMapped);
+            return await _repository.CreateAsync(planMapped);
         }
 
-        public async Task<int> UpdateTrainingPlanAsync(TrainingPlanFullBLL plan)
+        public async Task<Result<int>> UpdateAsync(TrainingPlanFullBLL plan)
         {
             if (plan.Photo == null || plan.Photo.Trim() == string.Empty)
             {
@@ -54,18 +54,19 @@ namespace FitLibrary.Logic.Services
             }
 
             var planMapped = _mapper.Map<TrainingPlanDb>(plan);
-            return await _repository.UpdateTrainingPlanAsync(planMapped);
+            return await _repository.UpdateAsync(planMapped);
         }
 
-        public async Task<int> DeleteTrainingPlanByIdAsync(int id)
+        public async Task<Result<int>> DeleteByIdAsync(int id)
         {
-            return await _repository.DeleteTrainingPlanByIdAsync(id);
-        }
+            var plan = await _repository.GetByIdAsync(id);
 
-        public async Task<bool> TrainingPlanIdExistsAsync(int id)
-        {
-            var plans = await _repository.GetAllTrainingPlansAsync();
-            return plans.Any(plan => plan.Id == id);
+            if (plan == null)
+            {
+                return Result<int>.Fail("План с указанным id не существует");
+            }
+
+            return await _repository.DeleteAsync(plan);
         }
     }
 }

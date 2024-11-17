@@ -1,4 +1,5 @@
-﻿using FitLibrary.DataAccess.Common.Models;
+﻿using FitLibrary.DataAccess.Common.Helpers;
+using FitLibrary.DataAccess.Common.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,11 +7,11 @@ namespace FitLibrary.DataAccess.Common.Repositories
 {
     public interface ITrainingPlanRepository
     {
-        Task<ICollection<TrainingPlanDb>> GetAllTrainingPlansAsync();
-        Task<TrainingPlanDb> GetTrainingPlanByIdAsync(int id);
-        Task<int> CreateTrainingPlanAsync(TrainingPlanDb plan);
-        Task<int> UpdateTrainingPlanAsync(TrainingPlanDb plan);
-        Task<int> DeleteTrainingPlanByIdAsync(int id);
+        Task<ICollection<TrainingPlanDb>> GetAllAsync();
+        Task<TrainingPlanDb> GetByIdAsync(int id);
+        Task<Result<int>> CreateAsync(TrainingPlanDb plan);
+        Task<Result<int>> UpdateAsync(TrainingPlanDb plan);
+        Task<Result<int>> DeleteAsync(TrainingPlanDb plan);
         Task<bool> SaveChangesAsync();
     }
 }

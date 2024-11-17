@@ -1,5 +1,6 @@
 ﻿using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/trainingPlan")]
+    [Authorize]
     public class TrainingPlanController : ControllerBase
     {
         private readonly ITrainingPlanService _service;
@@ -18,13 +20,14 @@ namespace FitLibrary.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("getAllTrainingPlans")]
+        [Route("getAll")]
         [ProducesResponseType(typeof(ICollection<TrainingPlanShortBLL>), 200)]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllTrainingPlansAsync()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllAsync()
         {
-            var trainingPlans = await _service.GetAllTrainingPlansAsync();
+            var trainingPlans = await _service.GetAllAsync();
 
             if (trainingPlans.Count == 0)
             {
@@ -35,76 +38,64 @@ namespace FitLibrary.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("getTrainingPlanById")]
+        [Route("getById")]
         [ProducesResponseType(typeof(TrainingPlanFullBLL), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetTrainingPlanByIdAsync([FromQuery] int id)
+        public async Task<IActionResult> GetByIdAsync([FromQuery] int id)
         {
-            var idExists = await _service.TrainingPlanIdExistsAsync(id);
-            if (!idExists)
-            {
-                return StatusCode(404, new { Message = "Тренировочный план не существует" });
-            }
-
-            var trainingPlan = await _service.GetTrainingPlanByIdAsync(id);
+            var trainingPlan = await _service.GetByIdAsync(id);
             if (trainingPlan == null)
             {
-                return StatusCode(500, new { Message = "Не удалось найти тренировочный план. Попробуйте позже" });
+                return StatusCode(404, new { Message = "Не удалось найти тренировочный план. Попробуйте позже" });
             }
 
             return Ok(trainingPlan);
         }
 
         [HttpPost]
-        [Route("createTrainingPlan")]
+        [Route("create")]
         [ProducesResponseType(typeof(int), 200)]
-        [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateTrainingPlanAsync([FromBody] TrainingPlanFullBLL plan)
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> CreateAsync([FromBody] TrainingPlanFullBLL plan)
         {
-            var planId = await _service.CreateTrainingPlanAsync(plan);
+            var creatingResult = await _service.CreateAsync(plan);
 
-            if (planId == 0)
+            if (!creatingResult.Success)
             {
-                return StatusCode(500, new { Message = "Не удалось создать тренировочный план. Попробуйте позже" });
+                return StatusCode(400, new { Message = creatingResult.Message });
             }
 
-            return Ok(planId);
+            return Ok(creatingResult);
         }
 
         [HttpPut]
         [Route("updateTrainingPlan")]
         [ProducesResponseType(typeof(int), 200)]
-        [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateTrainingPlanAsync([FromBody] TrainingPlanFullBLL plan)
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> UpdateAsync([FromBody] TrainingPlanFullBLL plan)
         {
-            var planId = await _service.UpdateTrainingPlanAsync(plan);
+            var updatingResult = await _service.UpdateAsync(plan);
 
-            if (planId == 0)
+            if (!updatingResult.Success)
             {
-                return StatusCode(500, new { Message = "Не удалось обновить тренировочный план. Попробуйте позже" });
+                return StatusCode(400, new { Message = updatingResult.Message });
             }
 
-            return Ok(planId);
+            return Ok(updatingResult);
         }
 
         [HttpDelete]
-        [Route("deleteTrainingPlan")]
+        [Route("delete")]
         [ProducesResponseType(typeof(int), 200)]
         [ProducesResponseType(404)] 
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteTrainingPlanAsync([FromQuery] int id)
+        public async Task<IActionResult> DeleteAsync([FromBody] int id)
         {
-            var idExists = await _service.TrainingPlanIdExistsAsync(id);
-            if (!idExists)
+            var deletionResult = await _service.DeleteByIdAsync(id);
+            if (!deletionResult.Success)
             {
-                return StatusCode(404, new { Message = "Тренировочный план не существует" });
-            }
-
-            var planId = await _service.DeleteTrainingPlanByIdAsync(id);
-            if (planId == 0)
-            {
-                return StatusCode(500, new { Message = "Не удалось удалить тренировочный план. Попробуйте позже" });
+                return StatusCode(400, new { Message = deletionResult.Message });
             }
 
             return Ok(id);

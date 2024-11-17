@@ -1,6 +1,7 @@
 ﻿using CloudinaryDotNet.Actions;
 using FitLibrary.Logic.Common.Models;
 using FitLibrary.Logic.Common.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,7 @@ namespace FitLibrary.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/photo")]
+    [Authorize]
     public class PhotoController : ControllerBase
     {
         private readonly IPhotoService _photoService;
@@ -35,7 +37,7 @@ namespace FitLibrary.WebAPI.Controllers
                 }
             }
 
-            return StatusCode(500, "Не удалось загрузить фото. Попробуйте позже");
+            return StatusCode(500, "Не удалось загрузить фото");
         }
 
         [HttpDelete]
@@ -56,7 +58,7 @@ namespace FitLibrary.WebAPI.Controllers
                 }
             }
 
-            return StatusCode(500, "Не удалось удалить фото. Попробуйте позже");
+            return StatusCode(400, "Не удалось удалить фото");
         }
     }
 }
